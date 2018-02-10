@@ -1,6 +1,9 @@
-import express from "express";
+import express from 'express';
+import bodyParser from 'body-parser';
 
 let app = express();
+
+app.use(bodyParser.json())
 
 app.get('/', function(req, res) {
     res.send('Hello World');
