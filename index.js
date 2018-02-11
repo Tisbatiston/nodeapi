@@ -9,22 +9,33 @@ const PORT = process.env.PORT || 3000;
 
 let app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressJwt({ secret: process.env.SECRET}).unless({path: ['/signin']}));
 
 app.get('/', function(req, res) {
     res.send('Hello World');
 })
 
-app.get('/signin', function(req, res) {
-    const token = jwt.sign(
-        { /* payload */ },
-        process.env.SECRET,
-        { expiresIn: 24 * 60 * 60 }
-    );
-    res.status(200).send({
-            token: token
+app.post('/signin', function(req, res) {
+    User.findOne({ email: req.body.email }, function(err, user) {
+        if (err) throw err;
+        user.comparePassword(req.body.password, function(err, isMatch) {
+            if (err) throw err;
+            const { email, role } = user;
+            const token = jwt.sign(
+                {
+                    email,
+                    role
+                },
+                process.env.SECRET,
+                { expiresIn: 24 * 60 * 60 }
+            );
+            res.status(200).send({
+                token: token
+            });
         });
+    });
 })
 
 let server = app.listen(PORT, function() {
