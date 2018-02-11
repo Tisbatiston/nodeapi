@@ -27,6 +27,7 @@ describe('/auth/signin POST', () => {
                 done();
             });
     });
+
     it('should return HTTP 404 when supplied with an inexisting user', (done) => {
         chai.request(server)
             .post('/auth/signin')
@@ -37,6 +38,7 @@ describe('/auth/signin POST', () => {
                 done();
             });
     });
+
     it('should return HTTP 400 for invalid sent data', (done) => {
         chai.request(server)
             .post('/auth/signin')
@@ -44,6 +46,17 @@ describe('/auth/signin POST', () => {
             .send({ gibberish: 'aye' })
             .end((err, res) => {
                 res.should.have.status(400);
+                done();
+            });
+    });
+
+    it('should return HTTP 404 when supplied with an incorrect password', (done) => {
+        chai.request(server)
+            .post('/auth/signin')
+            .set('content-type', 'application/json')
+            .send({ email: 'valid@user.com', password: 'wrongPassword' })
+            .end((err, res) => {
+                res.should.have.status(404);
                 done();
             });
     });

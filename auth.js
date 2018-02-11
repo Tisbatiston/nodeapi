@@ -35,6 +35,9 @@ router.post('/signin', function (req, res) {
                         token: token
                     });
                 }
+                else {
+                    res.status(404).send('User not found');
+                }
     
             });
         }
