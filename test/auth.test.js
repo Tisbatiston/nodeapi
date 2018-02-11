@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { User } from '../db';
+import { User } from '../User';
 import server from '../index';
 
 let should = chai.should();

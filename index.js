@@ -1,4 +1,5 @@
 import './env';
+import db from './db';
 import express from 'express';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
@@ -26,7 +27,7 @@ app.get('/', function (req, res) {
 
 app.listen(PORT, function () {
     console.log(`Server running at http://localhost:${this.address().port}`);
-    console.log(`Database at: ${process.env.MONGO_DB_URI}/${process.env.MONGO_DB_NAME}`);
+    console.log(`Database at: ${process.env.MONGO_DB_URI}/${process.env[`MONGO_DB_NAME_${process.env.NODE_ENV}`.toUpperCase()]}`);
 })
 
 export default app;
