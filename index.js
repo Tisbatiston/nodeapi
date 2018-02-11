@@ -23,7 +23,7 @@ app.get('/signin', function(req, res) {
     );
     res.status(200).send({
             token: token
-        })
+        });
 })
 
 let server = app.listen(PORT, function() {
