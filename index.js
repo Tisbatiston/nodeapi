@@ -24,7 +24,9 @@ app.get('/', function (req, res) {
     res.send('Hello World');
 })
 
-let server = app.listen(PORT, function () {
-    console.log(`Server running at http://localhost:${server.address().port}`);
+app.listen(PORT, function () {
+    console.log(`Server running at http://localhost:${this.address().port}`);
     console.log(`Database at: ${process.env.MONGO_DB_URI}/${process.env.MONGO_DB_NAME}`);
 })
+
+export default app;

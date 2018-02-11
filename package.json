@@ -6,7 +6,8 @@
   "scripts": {
     "babel-node": "babel-node --presets=env",
     "start": "nodemon --exec npm run babel-node -- ./index.js",
-    "build": "babel src -d dist"
+    "build": "babel src -d dist",
+    "test": "mocha --require babel-register"
   },
   "author": "Baptiste Perbos <baptiste.perbos@gmail.com>",
   "dependencies": {
@@ -22,6 +23,9 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "nodemon": "^1.14.12"
   }
 }
