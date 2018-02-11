@@ -4,6 +4,7 @@ import { User } from '../db';
 import server from '../index';
 
 let should = chai.should();
+chai.use(chaiHttp);
 
 describe('/auth/signin POST', () => {
     before(function () {
