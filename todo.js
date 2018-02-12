@@ -26,10 +26,10 @@ router.post('/', async (req, res) => {
 
     try {
         await todo.save();
-        res.status(200).send(todo);
+        res.status(200).json(todo);
     }
     catch (err) {
-        res.status(500).send(err);
+        res.status(500).json(err);
     }
 })
 

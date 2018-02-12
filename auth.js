@@ -6,21 +6,22 @@ let router = express.Router({
     mergeParams: true
 });
 
-router.post('/signin', function (req, res) {
+router.post('/signin', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         res.status(400).send('Invalid parameters');
         return;
     }
-    User.findOne({ email: req.body.email }, function (err, user) {
-        if (err) throw err;
-        else if (!user) {
+
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
             res.status(404).send('User not found');
         }
         else {
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (err) throw err;
-                
+
                 if (isMatch) {
                     const { email, role } = user;
                     const token = jwt.sign(
@@ -38,10 +39,12 @@ router.post('/signin', function (req, res) {
                 else {
                     res.status(404).send('User not found');
                 }
-    
             });
         }
-    });
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 export default router;
