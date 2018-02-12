@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { User } from '../User';
+import { createSuperAdmin } from './test-helpers';
 import server from '../index';
 
 let should = chai.should();
@@ -8,19 +8,14 @@ chai.use(chaiHttp);
 
 describe('/auth/signin POST', () => {
     before(function () {
-        const user = new User({
-            email: 'valid@user.com',
-            role: 'super_admin',
-            password: 'password'
-        });
-        user.save();
+        global.user = createSuperAdmin();
     });
 
     it('should return a token for a valid user', (done) => {
         chai.request(server)
             .post('/auth/signin')
             .set('content-type', 'application/json')
-            .send({ email: 'valid@user.com', password: 'password' })
+            .send({ email: global.user.email, password: global.user.password })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.have.property('token');
@@ -32,7 +27,7 @@ describe('/auth/signin POST', () => {
         chai.request(server)
             .post('/auth/signin')
             .set('content-type', 'application/json')
-            .send({ email: 'inexisting@user.com', password: 'password' })
+            .send({ email: 'inexisting@user.com', password: global.user.password })
             .end((err, res) => {
                 res.should.have.status(404);
                 done();
@@ -54,7 +49,7 @@ describe('/auth/signin POST', () => {
         chai.request(server)
             .post('/auth/signin')
             .set('content-type', 'application/json')
-            .send({ email: 'valid@user.com', password: 'wrongPassword' })
+            .send({ email: global.user.email, password: 'wrongPassword' })
             .end((err, res) => {
                 res.should.have.status(404);
                 done();

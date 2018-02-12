@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import { User } from './User';
+import { User } from './models/User';
 
 let router = express.Router({
     mergeParams: true

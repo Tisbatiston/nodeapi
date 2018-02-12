@@ -1,11 +1,13 @@
-const SALT_WORK_FACTOR = 10;
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+const Schema = mongoose.Schema;
+const SALT_WORK_FACTOR = 10;
 
-let userSchema = mongoose.Schema({
+let userSchema = Schema({
     email: { type: String, required: true, index: { unique: true } },
     role: { type: String, required: true },
     password: { type: String, required: true },
+    todos : [ { type: Schema.Types.ObjectId, ref: 'Todo' } ],
     name: {
         title: String,
         first: String,
