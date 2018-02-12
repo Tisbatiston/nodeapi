@@ -6,7 +6,7 @@ let router = express.Router({
     mergeParams: true
 });
 
-router.post('/', async function (req, res) {
+router.post('/', async (req, res) => {
     const { title, description } = req.body;
 
     if (!title) {
@@ -15,7 +15,7 @@ router.post('/', async function (req, res) {
     }
     const user = await getUserFromPayload(req.headers);
     if (!user) {
-        res.status(500).send('Unknown user');
+        res.status(401).send('Unauthorized');
         return;
     }
     const todo = new Todo({
@@ -23,7 +23,7 @@ router.post('/', async function (req, res) {
         description,
         user
     });
-    
+
     try {
         await todo.save();
         res.status(200).send(todo);

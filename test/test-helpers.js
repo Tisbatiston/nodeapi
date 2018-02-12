@@ -4,6 +4,8 @@ import { User } from '../models/User';
 
 chai.use(chaiHttp);
 
+export const unknownUserToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vdHJlYWxAaW52YWxpZC5jb20iLCJyb2xlIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE1MTg0MzY2NzEsImV4cCI6MTUxODUyMzA3MX0.Jc71aB1HqgsSjUN0JRx-EzEt40xoi0xtJEdNcIzBFhQeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vdHJlYWxAaW52YWxpZC5jb20iLCJyb2xlIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE1MTg0MzY2NzEsImV4cCI6MTUxODUyMzA3MX0.Jc71aB1HqgsSjUN0JRx-EzEt40xoi0xtJEdNcIzBFhQ';
+
 export const createSuperAdmin = () => {
     const user = new User({
         email: 'valid@user.com',
