@@ -20,7 +20,7 @@ describe('/todo POST', () => {
             .post('/todo')
             .set('content-type', 'application/json')
             .set('Authorization', `Bearer ${global.authToken}`)
-            .send({ email: 'valid@user.com', password: 'password' })
+            .send({title: 'ToDo #1', description: 'simple todo'})
             .end((err, res) => {
                 res.should.have.status(200);
                 // res.body.should.have.property('token');

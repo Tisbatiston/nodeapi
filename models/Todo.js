@@ -8,4 +8,4 @@ let todoSchema = Schema({
     completed: { type: Boolean, default: false }
 });
 
-export default Todo = mongoose.model('Todo', todoSchema);
+export const Todo = mongoose.model('Todo', todoSchema);

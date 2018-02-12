@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
 import authRouter from './auth';
+import todoRouter from './todo';
 
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +21,7 @@ app.use(expressJwt({ secret: process.env.SECRET }).unless({ path: ['/auth/signin
     Routers
 */
 app.use('/auth', authRouter);
+app.use('/todo', todoRouter);
 
 app.get('/', function (req, res) {
     res.send('Hello World');
